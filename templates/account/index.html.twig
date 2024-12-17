@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Account{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header text-white">
+                    <h4 class="mb-0">My Account</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Address:</strong> {{ user.address }}</p>
+                    <p><strong>City:</strong> {{ user.city }}</p>
+                    <p><strong>Postal Code:</strong> {{ user.postalCode }}</p>
+                    <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+                </div>
+                <div class="card-footer text-end">
+                    <a href="{{ path('account_edit') }}" class="btn btn-success" style="font-size: 18px;">Edit Account</a>
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

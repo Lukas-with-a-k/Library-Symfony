@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<style>
+   .container {
+       position: relative;
+       padding: 20px;
+      
+   }
+   img {
+       position: relative;
+       
+       left: 30px;
+   }
+
+   .com {
+       background-color:rgb(88, 88, 88);
+       color: white;
+       border-radius: 5px;
+   }
+</style>
+{% endblock %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ book.title }}</h1>
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Description:</strong> {{ book.description }}</p>
+    <p><strong>Rating:</strong> {{ book.rating }}/5</p>
+    {% if book.cover %}
+        <img src="{{ book.cover }}" alt="Cover of {{ book.title }}">
+    {% endif %}
+    <h2>Comments</h2>
+    <div class="com">
+    <ul>
+        {% for comment in book.comments %}
+            <li>
+                <strong class="text-success">{{ comment.user.firstName }} {{ comment.user.lastName }}</strong>
+                <p>{{ comment.content }}</p>
+                <small class="text-muted">Rating: {{ comment.rating }}/5</small>
+            </li>
+        {% else %}
+            <li>No comments yet.</li>
+        {% endfor %}
+    </ul>
+    </div>
+    {% if app.user %}
+    <h2>Leave a Comment</h2>
+    {{ form_start(commentForm) }}
+        {{ form_widget(commentForm) }}
+        <button class="btn btn-success">Submit Comment</button>
+    {{ form_end(commentForm) }}
+    {% endif %}
+
+    
+
+   <h2>Reservation</h2>
+{% if book.isAvailable %}
+    <p>This book is available for reservation.</p>
+    <a href="{{ path('loan_reserve', {'id': book.id}) }}" class="btn btn-success">Reserve</a>
+{% else %}
+    <p>This book is currently on loan 
+        {% if loan is defined and loan is not null %}
+            until {{ loan.endDate | date('d-m-Y') }}.
+        {% else %}
+            and is unavailable.
+        {% endif %}
+    </p>
+
+    {% if loan is defined and loan is not null and loan.user == app.user %}
+        {% if loan.isExtended %}
+            <button class="btn btn-secondary" disabled>Already Extended</button>
+        {% else %}
+            <a href="{{ path('extend_loan', { id: loan.id }) }}" class="btn btn-warning">Extend Loan</a>
+        {% endif %}
+    {% endif %}
+{% endif %}
+</div>
+{% endblock %}

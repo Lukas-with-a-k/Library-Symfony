@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Subscription{% endblock %}
+
+{% block body %}
+    <div class="subscription-container my-4">
+        <h1 class="subscription-title text-center">My Subscription</h1>
+
+        {% if subscriptionType %}
+            <div class="subscription-alert-info text-center">
+                <p><strong>Subscription Type:</strong> {{ subscriptionType|capitalize }}</p>
+                <p><strong>Subscription Valid Until:</strong> {{ subscriptionEndDate|date('d/m/Y') }}</p>
+            </div>
+
+            <form method="POST" action="{{ path('app_subscription') }}" class="subscription-form-cancel">
+                <button type="submit" name="cancel_subscription" class="subscription-btn-danger">
+                    Cancel Subscription
+                </button>
+            </form>
+        {% else %}
+            <div class="subscription-alert-warning text-center">
+                <p>You currently do not have an active subscription.</p>
+                <a href="{{ path('app_subscription') }}" class="subscription-btn-success">Subscribe Now</a>
+            </div>
+        {% endif %}
+
+        <h3 class="subscription-update-title mt-4">Update Your Subscription</h3>
+        <div class="subscription-form-update">
+            {{ form_start(form, { 'attr': { 'class': 'subscription-form' } }) }}
+                {{ form_widget(form, { 'attr': { 'class': 'subscription-input' } }) }}
+                <button type="submit" class="subscription-btn-success">Update Subscription</button>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

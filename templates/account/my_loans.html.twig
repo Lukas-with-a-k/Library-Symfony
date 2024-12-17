@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Loans{% endblock %}
+
+{% block body %}
+    <div class="container my-4">
+        <h1 class="text-center mb-4">My Loans</h1>
+
+        {% if loans is empty %}
+            <p class="alert alert-info text-center">You have no loans.</p>
+        {% else %}
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                {% for loan in loans %}
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            {% if loan.book.cover %}
+                                <img src="{{ loan.book.cover }}" class="card-img-top img-fluid" style="height: 200px; object-fit: cover;" alt="Cover of {{ loan.book.title }}">
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title text-truncate">{{ loan.book.title }}</h5>
+                                <p class="card-text mb-1"><strong>Loan Date:</strong> {{ loan.startDate|date('d/m/Y') }}</p>
+                                <p class="card-text mb-1"><strong>Return Date:</strong> {{ loan.endDate|date('d/m/Y') }}</p>
+                                <p class="card-text">
+                                    <strong>Status:</strong>
+                                    {% if loan.endDate < 'now'|date %}
+                                        <span class="text-danger">Late</span>
+                                    {% else %}
+                                        <span class="text-success">On Time</span>
+                                    {% endif %}
+                                </p>
+                                <div class="mt-auto">
+                                    {%  if loan.isExtended %}
+                                        <button class="btn btn-sm btn-secondary w-100" disabled>Already Extended</button>
+                                    {% else %}
+                                        <a href="{{ path('extend_loan', { id: loan.id }) }}" class="btn btn-sm btn-warning w-100">Extend Loan</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

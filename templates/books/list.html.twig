@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books for {{ genre }}{% endblock %}
+
+{% block body %}
+    <h1>Books : {{ genre }}</h1>
+
+    {% if books is not empty %}
+        <ul>
+            {% for book in books %}
+                <li>
+                    <h3>{{ book.title }}</h3>
+                    <p>Rating : {{ book.rating }}/5</p>
+                    <p>Author : {{ book.author }}</p>
+                    <p>Description : {{ book.description }}</p>
+                    {% if book.cover %}
+                        <img src="{{ book.cover }}" alt="Cover of {{ book.title }}">
+                    {% endif %}
+                </li>
+            <a href="{{ path('app_book_show', { id: book.id }) }}" class="btn btn-success">Details</a>
+            {% endfor %}            
+        </ul>
+    {% else %}
+        <p>No books found.</p>
+    {% endif %}
+{% endblock %}

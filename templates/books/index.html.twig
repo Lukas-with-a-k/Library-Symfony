@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books{% endblock %}
+
+{% block body %}
+    <h1 class="text-center my-4">Books</h1>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-5 g-3">
+            {% for book in books %}
+                <div class="col">
+                    <div class="card h-100 d-flex flex-column">
+                        {% if book.cover %}
+                            <img src="{{ book.cover }}" class="card-img-top" alt="Cover of {{ book.title }}">
+                        {% endif %}
+                        <div class="card-body flex-grow-1">
+                            <h5 class="card-title">{{ book.title }}</h5>
+                            <p class="card-text">Author: {{ book.author }}</p>
+                            <p class="card-text">
+                                {{ book.description|length > 100 ? book.description|slice(0, 100) ~ '...' : book.description }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-white border-0 mt-auto d-flex gap-2 ">
+                            <a href="{{ path('app_book_show', { id: book.id }) }}" class="btn btn-info btn-sm">Details</a>
+                            {% if app.user.subscriptionType is not null %}
+    <a href="{{ path('loan_reserve', {'id': book.id}) }}" class="btn btn-success">Reserve</a>
+{% else %}
+    <button class="btn btn-secondary" disabled>Subscribe to Reserve</button>
+{% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p class="text-center">No books available.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

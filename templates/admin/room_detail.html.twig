@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room Details{% endblock %}
+
+{% block body %}
+    <h1>Room Details : {{ room.name }}</h1>
+
+    <h2>Informations</h2>
+    <ul>
+        <li>Name : {{ room.name }}</li>
+        <li>Capacity : {{ room.capacity }} personnes</li>
+        <li>Equipment : {{ room.equipment | join(', ') }}</li>
+    </ul>
+
+    <h2>Reservations</h2>
+    {% if reservations|length > 0 %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.user.firstname }} {{ reservation.user.lastname }}</td>
+                        <td>{{ reservation.startDate|date('d/m/Y H:i') }}</td>
+                        <td>{{ reservation.endDate|date('d/m/Y H:i') }}</td>
+                        <td>
+    <form action="{{ path('admin_room_cancel', {id: reservation.id}) }}" method="POST" style="display:inline;">
+        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to cancel this reservation?');">
+            Cancel
+        </button>
+    </form>
+</td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No reservations found.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit My Account{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="h3 mb-3 font-weight-normal text-center">Edit My Account</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        {{ form_start(form, { 'attr': { 'class': 'needs-validation' } }) }}
+                        
+                        <div class="mb-3">
+                            {{ form_row(form.firstName, {
+                                'label': 'First Name',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.lastName, {
+                                'label': 'Last Name',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.email, {
+                                'label': 'Email',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.address, {
+                                'label': 'Address',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.postalCode, {
+                                'label': 'Postal Code',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.city, {
+                                'label': 'City',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form_row(form.phoneNumber, {
+                                'label': 'Phone Number',
+                                'attr': { 'class': 'form-control' }
+                            }) }}
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Save Changes</button>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block body %}
+    <h1>User Management</h1>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.firstname }} {{ user.lastname }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles[0] }}</td>
+                    <td>
+                          {% if user.isBanned %}
+            <a href="{{ path('admin_users_unban', { id: user.id }) }}" class="btn btn-warning btn-sm">Unban</a>
+        {% else %}
+            <a href="{{ path('admin_users_ban', { id: user.id }) }}" class="btn btn-danger btn-sm">Ban</a>
+        {% endif %}
+                        <a href="{{ path('admin_users_role', { id: user.id, role: 'ROLE_ADMIN' }) }}" class="btn btn-success btn-sm">Promote Admin</a> 
+                        <a href="{{ path('admin_users_role', { id: user.id, role: 'ROLE_USER' }) }}" class="btn btn-secondary btn-sm">Define User</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

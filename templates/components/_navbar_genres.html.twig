@@ -1,0 +1,8 @@
+<ul class="navbar-nav">
+{% for genre in genres %}
+    <li><a class="dropdown-item" href="{{ path('app_books_by_genre', {'genre': genre}) }}">{{ genre }}</a></li>
+{% else %}
+    <li><a class="dropdown-item disabled">No categories available</a></li>
+{% endfor %}
+</ul>
+

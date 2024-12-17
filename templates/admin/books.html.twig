@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books Management{% endblock %}
+
+{% block body %}
+<h1>Books Management</h1>
+<a href="{{ path('admin_books_add') }}" class="btn btn-alert">Add Book</a>
+<table>
+    <thead>
+        <tr>
+            <th>Picture</th>
+            <th>Title</th>
+            <th>Availability</th>
+            <th>Restitution</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in books %}
+            <tr {% if not book.isAvailable %}class="bg-warning"{% endif %}>
+                <td><img src="{{ book.cover }}" alt="{{ book.title }}" style="width: 50px;"></td>
+                <td>{{ book.title }}</td>
+                <td>{{ book.isAvailable ? 'Disponible' : 'Indisponible' }}</td>
+                <td>{{ book.dateRestitutionPrevue ? book.dateRestitutionPrevue|date('d/m/Y') : 'Disponible' }}</td>
+                <td>
+                    {% if not book.isAvailable %}
+                        <a href="{{ path('admin_books_return', {id: book.id}) }}" class="btn btn-success">Bring back</a>
+                    {% endif %}
+                    <a href="{{ path('admin_books_edit', {id: book.id}) }}" class="btn btn-info">Modify</a>
+                    <a href="{{ path('admin_books_delete', {id: book.id}) }}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+    .btn-primary {
+        color: #fff !important;
+        background-color: #0d6efd !important;
+        border-color: #0d6efd !important;
+    }
+</style>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Available Rooms{% endblock %}
+
+
+
+{% block body %}
+<div class="con">
+    <h1>Available Rooms</h1>
+    {% for room in rooms %}
+    <div class="room-container mb-4">
+        <h2>{{ room.name }}</h2>
+        <p><strong>Capacity:</strong> {{ room.capacity }} people</p>
+        <p><strong>Equipment:</strong> 
+            {% if room.equipment|length > 0 %}
+                {{ room.equipment|join(', ') }}
+            {% else %}
+                No equipment available.
+            {% endif %}
+        </p>
+        <div id="calendar-{{ room.id }}" data-room-id="{{ room.id }}"></div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[id^="calendar-"]').forEach(function (calendarEl) {
+        var roomId = calendarEl.dataset.roomId;
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'timeGridWeek',
+            timeZone: 'Europe/Paris',
+            allDaySlot: false,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'timeGridWeek,timeGridDay'
+            },
+            slotMinTime: '08:00:00',
+            slotMaxTime: '19:00:00',
+            slotDuration: '01:00:00',
+            height: 'auto',
+            slotLabelFormat: { hour: '2-digit', minute: '2-digit', hour12: false },
+            dayHeaderFormat: { weekday: 'short', day: 'numeric', month: 'short' },
+            events: '/api/rooms/availability/' + roomId,
+            editable: true,
+            selectable: true,
+            select: function (info) {
+              const duration = parseInt(prompt('Enter the duration (1-4 hours):'), 10); 
+    
+                if (isNaN(duration) || duration < 1 || duration > 4) {
+             alert('Invalid duration. Please enter a number between 1 and 4.');
+            return;
+            }
+
+                const startTime = new Date(info.startStr);
+                const endTime = new Date(startTime.getTime());
+                endTime.setHours(startTime.getHours() + parseInt(duration));
+
+                fetch('/rooms/reserve', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        roomId: roomId,
+                        startTime: startTime.toISOString(),
+                        endTime: endTime.toISOString(),
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Reservation successful!');
+                        calendar.refetchEvents();
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch((error) => console.error('Failed to reserve room:', error));
+            },
+            eventClick: function (info) {
+    if (confirm('Do you want to cancel this reservation?')) {
+        fetch('/rooms/cancel', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                reservationId: info.event.id
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Reservation cancelled.');
+                info.event.remove();
+            } else {
+                alert('Error: ' + data.error);
+            }
+        })
+        .catch((error) => {
+            console.error('Failed to cancel reservation:', error);
+        });
+    }
+}
+        });
+        
+
+        calendar.render();
+    });
+});
+
+
+    </script>
+{% endblock %}

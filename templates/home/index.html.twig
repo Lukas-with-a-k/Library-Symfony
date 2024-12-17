@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Library{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="text-center">
+            <h1 class="display-4">Welcome to the Library</h1>
+            <p class="lead">Explore our collection of books and find your favorite title</p>
+        </div>
+
+        {% if randomBook %}
+            <div class="mt-5">
+                <h2 class="text-center mb-4">A random book for you</h2>
+                <div class="card mx-auto shadow-lg" label="Random Book">
+                    {% if randomBook.cover %}
+                        <img src="{{ randomBook.cover }}" class="card-img-top" alt="Couverture de {{ randomBook.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h3 class="card-title">{{ randomBook.title }}</h3>
+                        <h5 class="text-muted">Author : {{ randomBook.author }}</h5>
+                        <p class="card-text mt-3">
+                            {{ randomBook.description|length > 200 ? randomBook.description|slice(0, 200) ~ '...' : randomBook.description }}
+                        </p>
+                        <div class="d-grid">
+                            <a href="{{ path('app_book_show', { id: randomBook.id }) }}" class="btn btn-success">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center mt-5">No books available</p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+.card {
+    width : 18rem;
+    
+}
+
+    .card-img-top {
+        padding: 10px;
+        height: 20rem;
+        object-fit: cover;
+        
+    }
+</style>
+{% endblock %}

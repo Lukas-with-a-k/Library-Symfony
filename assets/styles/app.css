@@ -1,0 +1,463 @@
+body {
+    font-family: 'Georgia', sans-serif;
+    background-color: #b8b8b8; 
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+}
+
+.content-wrap {
+    flex: 1;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; 
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    overflow: hidden; 
+    background-color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.room-container {
+    border: 1px solid #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #a5a5a5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.room-container h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.room-container p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #555;
+}
+
+.fc-event-title-container {
+    width: 100%;
+}
+
+a.fc-col-header-cell-cushion {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.fc-col-header {
+    background-color: #353535;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Créneaux sélectionnés */
+.fc-highlight {
+    background-color: #d4edda !important;
+    opacity: 0.6;
+}
+
+.card-img-top {
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.btn-success:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.8);
+}
+
+.btn-info {
+    background-color: #17a3b85d;
+    border: none;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    border-radius: 5px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    transform: scale(1.05);
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.navbar {
+    background-color: #343a40 !important;
+}
+
+.navbar-brand, .nav-link {
+    color: #ffffff !important;
+}
+
+.nav-link:hover {
+    color: #f8f9fa !important;
+}
+
+.navbar-toggler {
+    border-color: #ffffff !important;
+}
+
+.dropdown-menu {
+    background-color: #ffffff;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
+
+.modal-title {
+    color: #ffffff;
+}
+
+.modal-header {
+    background-color: #000000;
+    border-bottom: 1px solid #3b3b3b;
+}
+
+.modal-body {
+    font-size: 16px;
+}
+
+.modal-footer .btn {
+    font-size: 14px;
+}
+
+form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#comment_form_rating {
+    margin-bottom: 10px;
+    width: 50px;
+}
+
+form input,
+form select,
+form textarea {
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    width: 100%;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.btn-success {
+    background-color: #08521a;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+    border-top: 2px solid #dee2e6;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+.custom-footer {
+    background-color: #343a40;
+    color: #ffffff;
+    margin-top: 30px;
+    font-size: 0.9rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.custom-footer .footer-link {
+    color: #ffffff;
+    margin-left: 15px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.custom-footer .footer-link:hover {
+    color: #17a2b8;
+    text-decoration: underline;
+}
+
+.custom-footer p {
+    margin: 0;
+}
+
+.home-container {
+    padding: 20px;
+}
+
+.home-header {
+    margin-bottom: 30px;
+}
+
+.home-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.home-subtitle {
+    font-size: 1.25rem;
+    color: #7f8c8d;
+}
+
+.book-of-the-day-container {
+    text-align: center;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+    background-color: #000000;
+}
+
+.book-card {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.book-cover {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.book-card-body {
+    padding: 20px;
+    text-align: left;
+}
+
+.book-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    color: #34495e;
+}
+
+.book-author {
+    font-size: 1.2rem;
+    color: #95a5a6;
+}
+
+.book-description {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #2c3e50;
+}
+
+.book-action {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.book-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #27ae60;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.book-button:hover {
+    background-color: #229954;
+}
+
+.no-book-message {
+    font-size: 1.2rem;
+    color: #c0392b;
+    font-weight: bold;
+}
+
+.subscription-container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-title {
+    color: #333;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.subscription-alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.subscription-alert-warning {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.subscription-btn-success {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.subscription-btn-danger {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.subscription-btn-success:hover,
+.subscription-btn-danger:hover {
+    opacity: 0.9;
+}
+
+.subscription-form-update {
+    margin-top: 20px;
+}
+
+.subscription-form .subscription-input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+

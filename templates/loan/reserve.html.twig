@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reserve Book{% endblock %}
+
+{% block body %}
+    <h1>Reserve "{{ book.title | default('Unknown Title') }}"</h1>
+    <p><strong>Author:</strong> {{ book.author | default('Unknown Author') }}</p>
+    <p><strong>Description:</strong> {{ book.description | default('No Description Available') }}</p>
+
+
+    <h2>Reservation Form</h2>
+    {{ form_start(form, { 'action': path('loan_reserve', { id: book.id }), 'method': 'POST' }) }}
+    {{ form_widget(form) }}
+    <button class="btn btn-success" type="submit">Reserve</button>
+    {{ form_end(form) }}
+
+    {% if loan is defined and canExtend %}
+        <a href="{{ path('loan_extend', {'id': loan.id}) }}" class="btn btn-warning">Extend Loan</a>
+    {% endif %}
+
+    <a href="{{ path('app_book_show', {'id': book.id}) }}" class="btn btn-primary">Back to Book Details</a>
+
+    
+{% endblock %}

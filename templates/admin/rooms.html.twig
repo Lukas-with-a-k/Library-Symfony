@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Room Management{% endblock %}
+
+{% block body %}
+<h1>Room Management</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Capacity</th>
+            <th>Equipment</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for room in rooms %}
+            <tr>
+                <td>{{ room.name }}</td>
+                <td>{{ room.capacity }}</td>
+                <td>{{ room.equipment|join(', ') }}</td>
+                <td>
+                    <a href="{{ path('admin_rooms_detail', {id: room.id}) }}" class="btn btn-info">Details</a>
+                    <a href="{{ path('admin_rooms_edit', {id: room.id}) }}" class="btn btn-warning">Modify</a>
+                    <a href="{{ path('admin_rooms_delete', {id: room.id}) }}" class="btn btn-danger">Delete</a>
+                    <a href="{{ path('admin_rooms_add') }}" class="btn btn-success">Ajouter</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
