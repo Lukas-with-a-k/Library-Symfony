@@ -96,4 +96,13 @@ public function findCompleteBooks(): array
             ->getQuery()
             ->getResult();
     }
+
+    public function findBySearchQuery(string $query): array
+    {
+        return $this->createQueryBuilder('b')
+            ->where('b.title LIKE :query OR b.description LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

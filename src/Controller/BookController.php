@@ -38,6 +38,16 @@ class BookController extends AbstractController
         ]);
     }
 
+    #[Route('/books/search', name: 'app_book_search')]
+    public function search(Request $request, BookRepository $bookRepository)
+    {
+        $query = $request->query->get('q');
+        $books = $bookRepository->findBySearchQuery($query);
+
+        return $this->render('books/index.html.twig', [
+            'books' => $books,
+        ]);
+    }
     #[Route('/navbar/genres', name: 'app_navbar_genres')]
     public function navbarGenres(): Response
     {
